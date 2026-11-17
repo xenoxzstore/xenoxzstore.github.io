@@ -142,6 +142,15 @@ nav.top .right { margin-left: auto; display: flex; align-items: center; gap: 18p
 
 /* ---------- produtos ---------- */
 section { padding-block: 96px 0; }
+.player { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid #000; background: #000; box-shadow: 0 30px 70px rgba(0,0,0,.55), 0 0 0 1px rgba(229,32,46,.35), 0 0 80px rgba(229,32,46,.14); }
+.player video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; }
+.vid-meta { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; margin-top: 16px; color: var(--mute); font-size: 13px; }
+.vid-meta b { color: var(--ink); font-weight: 600; }
+.vid-meta .chip { font: 600 12px/1 var(--mono); padding: 6px 9px; border-radius: 6px; background: var(--raise); border: 1px solid var(--line); color: var(--ink); }
+.chapters { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.chapters button { font: 600 13px/1 var(--display); color: var(--ink); background: var(--frame); border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; cursor: pointer; transition: border-color .2s, background .2s; }
+.chapters button:hover { border-color: var(--red); background: rgba(229,32,46,.12); }
+.chapters button span { font-family: var(--mono); color: var(--red-hi); margin-right: 6px; font-weight: 500; }
 .head { display: grid; gap: 14px; max-width: 640px; margin-bottom: 44px; }
 .head h2 { font-size: clamp(30px, 3.8vw, 44px); line-height: 1.05; font-weight: 800; text-transform: uppercase; }
 .head p { color: var(--mute); }
@@ -257,6 +266,7 @@ footer { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wr
         <button class="burger" type="button" aria-label="Ir para os painéis" onclick="document.getElementById('paineis').scrollIntoView()"><span></span><span></span><span></span></button>
         <a class="logo" href="#xenoxz-store"><i>X</i><span class="grad">XENOXZ</span><small>STORE</small></a>
         <div class="links">
+          <a href="#video">Vídeo</a>
           <a href="#paineis">Painéis</a>
           <a href="#como">Como funciona</a>
           <a href="#planos">Planos</a>
@@ -313,6 +323,29 @@ footer { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wr
       <div><strong>2<span>×</span></strong><small>painéis: After Effects e VEGAS Pro</small></div>
     </div>
   </header>
+
+  <section id="video">
+    <div class="head">
+      <span class="eyebrow">Veja funcionando</span>
+      <h2>O XENOXZ Effects Pro na prática</h2>
+      <p>Quatro minutos dentro do After Effects: presets e pastas, ferramentas rápidas, biblioteca de vídeos, AI Roto Brush, aplicar efeitos no clipe e trocar a capa dos cartões.</p>
+    </div>
+    <div class="player">
+      <video id="tutorial" controls playsinline preload="metadata" poster="img/tutorial-poster.jpg" width="1920" height="1080">
+        <source src="video/tutorial-effects-pro.mp4" type="video/mp4">
+        Seu navegador não toca vídeo MP4.
+      </video>
+    </div>
+    <div class="vid-meta"><span class="chip">4:17</span><span><b>XENOXZ Effects Pro</b> · After Effects</span><span>Gravado em 1080p</span></div>
+    <ul class="chapters" aria-label="Pular para uma parte do vídeo">
+      <li><button type="button" data-t="0"><span>0:00</span>Presets e pastas</button></li>
+      <li><button type="button" data-t="45"><span>0:45</span>Ferramentas</button></li>
+      <li><button type="button" data-t="60"><span>1:00</span>Vídeos</button></li>
+      <li><button type="button" data-t="100"><span>1:40</span>AI Roto Brush</button></li>
+      <li><button type="button" data-t="145"><span>2:25</span>Aplicar no clipe</button></li>
+      <li><button type="button" data-t="200"><span>3:20</span>Capa dos cartões</button></li>
+    </ul>
+  </section>
 
   <section id="paineis">
     <div class="head">
@@ -495,6 +528,13 @@ footer { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wr
     });
   });
   setPeriod("perm");
+
+  // capítulos do vídeo
+  const vid = document.getElementById("tutorial");
+  document.querySelectorAll(".chapters button").forEach((b) => b.addEventListener("click", () => {
+    vid.currentTime = Number(b.dataset.t);
+    const p = vid.play(); if (p && p.catch) p.catch(() => {});
+  }));
 
   // carrossel do hero (setas como na referência)
   const slides = [document.getElementById("s0"), document.getElementById("s1")];
