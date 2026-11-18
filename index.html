@@ -147,6 +147,10 @@ section { padding-block: 96px 0; }
 .vid-meta { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; margin-top: 16px; color: var(--mute); font-size: 13px; }
 .vid-meta b { color: var(--ink); font-weight: 600; }
 .vid-meta .chip { font: 600 12px/1 var(--mono); padding: 6px 9px; border-radius: 6px; background: var(--raise); border: 1px solid var(--line); color: var(--ink); }
+.vtabs { display: inline-flex; gap: 4px; padding: 4px; border-radius: 12px; background: var(--frame); border: 1px solid var(--line); margin-bottom: 20px; }
+.vtabs button { border: 0; background: transparent; color: var(--mute); font: 700 13px/1 var(--display); padding: 11px 18px; border-radius: 9px; cursor: pointer; transition: background .2s, color .2s; }
+.vtabs button[aria-selected="true"] { background: var(--red); color: #fff; }
+.vtabs button:hover:not([aria-selected="true"]) { color: var(--ink); }
 .chapters { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .chapters button { font: 600 13px/1 var(--display); color: var(--ink); background: var(--frame); border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; cursor: pointer; transition: border-color .2s, background .2s; }
 .chapters button:hover { border-color: var(--red); background: rgba(229,32,46,.12); }
@@ -327,24 +331,49 @@ footer { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wr
   <section id="video">
     <div class="head">
       <span class="eyebrow">Veja funcionando</span>
-      <h2>O XENOXZ Effects Pro na prática</h2>
-      <p>Quatro minutos dentro do After Effects: presets e pastas, ferramentas rápidas, biblioteca de vídeos, AI Roto Brush, aplicar efeitos no clipe e trocar a capa dos cartões.</p>
+      <h2>Os painéis na prática</h2>
+      <p>Escolha o programa e veja o painel sendo usado de verdade, do primeiro clique ao efeito aplicado.</p>
     </div>
-    <div class="player">
-      <video id="tutorial" controls playsinline preload="metadata" poster="img/tutorial-poster.jpg" width="1920" height="1080">
-        <source src="video/tutorial-effects-pro.mp4" type="video/mp4">
-        Seu navegador não toca vídeo MP4.
-      </video>
+    <div class="vtabs" role="tablist" aria-label="Escolha o vídeo">
+      <button type="button" role="tab" id="tab-ae" aria-controls="tut-ae" aria-selected="true">After Effects</button>
+      <button type="button" role="tab" id="tab-vegas" aria-controls="tut-vegas" aria-selected="false">VEGAS Pro</button>
     </div>
-    <div class="vid-meta"><span class="chip">4:17</span><span><b>XENOXZ Effects Pro</b> · After Effects</span><span>Gravado em 1080p</span></div>
-    <ul class="chapters" aria-label="Pular para uma parte do vídeo">
-      <li><button type="button" data-t="0"><span>0:00</span>Presets e pastas</button></li>
-      <li><button type="button" data-t="45"><span>0:45</span>Ferramentas</button></li>
-      <li><button type="button" data-t="60"><span>1:00</span>Vídeos</button></li>
-      <li><button type="button" data-t="100"><span>1:40</span>AI Roto Brush</button></li>
-      <li><button type="button" data-t="145"><span>2:25</span>Aplicar no clipe</button></li>
-      <li><button type="button" data-t="200"><span>3:20</span>Capa dos cartões</button></li>
-    </ul>
+
+    <div class="tut" id="tut-ae" role="tabpanel" aria-labelledby="tab-ae">
+      <div class="player">
+        <video controls playsinline preload="metadata" poster="img/tutorial-poster.jpg" width="1920" height="1080">
+          <source src="video/tutorial-effects-pro.mp4" type="video/mp4">
+          Seu navegador não toca vídeo MP4.
+        </video>
+      </div>
+      <div class="vid-meta"><span class="chip">4:17</span><span><b>XENOXZ Effects Pro</b> · After Effects</span><span>Presets, ferramentas, vídeos, AI Roto Brush e capa dos cartões</span></div>
+      <ul class="chapters" aria-label="Pular para uma parte do vídeo do After Effects">
+        <li><button type="button" data-t="0"><span>0:00</span>Presets e pastas</button></li>
+        <li><button type="button" data-t="45"><span>0:45</span>Ferramentas</button></li>
+        <li><button type="button" data-t="60"><span>1:00</span>Vídeos</button></li>
+        <li><button type="button" data-t="100"><span>1:40</span>AI Roto Brush</button></li>
+        <li><button type="button" data-t="145"><span>2:25</span>Aplicar no clipe</button></li>
+        <li><button type="button" data-t="200"><span>3:20</span>Capa dos cartões</button></li>
+      </ul>
+    </div>
+
+    <div class="tut" id="tut-vegas" role="tabpanel" aria-labelledby="tab-vegas" hidden>
+      <div class="player">
+        <video controls playsinline preload="none" poster="img/tutorial-vegas-poster.jpg" width="1600" height="900">
+          <source src="video/tutorial-editor-pro.mp4" type="video/mp4">
+          Seu navegador não toca vídeo MP4.
+        </video>
+      </div>
+      <div class="vid-meta"><span class="chip">7:46</span><span><b>XENOXZ Editor Pro</b> · VEGAS Pro</span><span>Mídia, batidas automáticas, áudio, efeitos e prévias reais</span></div>
+      <ul class="chapters" aria-label="Pular para uma parte do vídeo do VEGAS Pro">
+        <li><button type="button" data-t="0"><span>0:00</span>Mídia e importação</button></li>
+        <li><button type="button" data-t="80"><span>1:20</span>Batidas automáticas</button></li>
+        <li><button type="button" data-t="130"><span>2:10</span>Biblioteca de áudio</button></li>
+        <li><button type="button" data-t="160"><span>2:40</span>Clipes na timeline</button></li>
+        <li><button type="button" data-t="200"><span>3:20</span>Efeitos</button></li>
+        <li><button type="button" data-t="290"><span>4:50</span>Prévias reais</button></li>
+      </ul>
+    </div>
   </section>
 
   <section id="paineis">
@@ -529,12 +558,31 @@ footer { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wr
   });
   setPeriod("perm");
 
-  // capítulos do vídeo
-  const vid = document.getElementById("tutorial");
-  document.querySelectorAll(".chapters button").forEach((b) => b.addEventListener("click", () => {
-    vid.currentTime = Number(b.dataset.t);
-    const p = vid.play(); if (p && p.catch) p.catch(() => {});
-  }));
+  // abas dos vídeos (After Effects / VEGAS Pro) e capítulos de cada um
+  const tabs = Array.from(document.querySelectorAll(".vtabs button"));
+  function pick(tab) {
+    tabs.forEach((t) => {
+      const on = t === tab, panel = document.getElementById(t.getAttribute("aria-controls"));
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+      panel.hidden = !on;
+      if (!on) { const v = panel.querySelector("video"); if (v && !v.paused) v.pause(); }
+    });
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => pick(t));
+    t.addEventListener("keydown", (e) => {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      const n = tabs[(i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length]; n.focus(); pick(n);
+    });
+  });
+  document.querySelectorAll(".tut").forEach((panel) => {
+    const vid = panel.querySelector("video");
+    panel.querySelectorAll(".chapters button").forEach((b) => b.addEventListener("click", () => {
+      vid.currentTime = Number(b.dataset.t);
+      const pr = vid.play(); if (pr && pr.catch) pr.catch(() => {});
+    }));
+  });
 
   // carrossel do hero (setas como na referência)
   const slides = [document.getElementById("s0"), document.getElementById("s1")];
